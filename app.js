@@ -1,5 +1,4 @@
-function onload(){
-    let courses = [
+let courses = [
     {
       "id": 11819,
       "name": "Thanksgiving Point Golf Course - Lehi, UT",
@@ -17,9 +16,10 @@ function onload(){
     }
   ];
 
+function onload(){
   let courseOptionsHtml = '';
   courses.forEach((course) => {
-    courseOptionsHtml += `<option value="${course.id}">${course.name}</option>`;
+    courseOptionsHtml += `<option onclick="courseSelected(${course.id})" value="${course.id}">${course.name}</option>`;
   });
   document.getElementById("course-select").innerHTML = courseOptionsHtml;
 }
@@ -29,10 +29,24 @@ function courseDropdown(){
   dropdown.style.display = "block";
 }
 
-function courseSelected(course){
+function courseSelected(id){
+  let courseName;
+
+  //identify the course that was selected
+  courses.forEach(course => {
+    if(course.id === id){
+      courseName = course.name;
+    }
+  });
+
   //hide the dropdown
+  dropdown = document.getElementById("course-select");
+  dropdown.style.display = "none";
 
   //change the selection box to say the course they selected
+  selection = document.getElementById("selected");
+  selection.textContent = courseName;
 
-  //light up the go button
+  //make the go button visible
+  document.getElementById("goButton").style.display = "flex";
 }

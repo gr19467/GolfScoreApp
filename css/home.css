@@ -27,7 +27,7 @@ body {
   padding-right: 3vw;
 }
 #options-container label {
-  color: #4a7836;
+  color: white;
   font-size: 3vh;
 }
 
@@ -61,4 +61,27 @@ body {
 }
 #course-select option:hover {
   color: #2A4420;
+}
+
+#goButton {
+  margin-top: 3vh;
+  display: flex;
+  justify-content: center;
+}
+#goButton h1 {
+  width: -moz-fit-content;
+  width: fit-content;
+  margin: 0;
+  font-size: 3vh;
+  color: white;
+  background-color: #2A4420;
+  border-radius: 20px;
+  border: #2A4420 2px solid;
+  padding-top: 1vh;
+  padding-bottom: 0.5vh;
+  padding-left: 2vw;
+  padding-right: 2vw;
+}
+#goButton h1:hover {
+  background-color: #4a7836;
 }/*# sourceMappingURL=home.css.map */

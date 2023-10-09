@@ -37,7 +37,7 @@ body{
 
 #options-container{
     label{
-        color: $lighterGreen;
+        color: white;
         font-size: 3vh;
     }
 
@@ -77,5 +77,31 @@ body{
     }
     option:hover{
         color: $mainGreen;
+    }
+}
+
+#goButton{
+    margin-top: 3vh;
+
+    display: flex;
+    justify-content: center;
+
+    h1{
+        width: fit-content;
+        margin: 0;
+        
+        font-size: 3vh;
+
+        color: white;
+        background-color: $mainGreen;
+
+        border-radius: 20px;
+        border: $mainGreen 2px solid;
+
+        @include padding(1vh, .5vh, 2vw, 2vw);
+    } 
+
+    h1:hover{
+        background-color: $lighterGreen;
     }
 }
