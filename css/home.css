@@ -1,0 +1,29 @@
+body {
+  background-image: url(/Images/home.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+#header h1 {
+  text-align: center;
+  font-size: 400%;
+  margin-top: 30vh;
+  margin-bottom: 5vh;
+  color: #2A4420;
+  -webkit-backdrop-filter: blur(5px);
+          backdrop-filter: blur(5px);
+  border-radius: 20px;
+}
+
+#options-container {
+  font-size: 125%;
+  color: #2A4420;
+  -webkit-backdrop-filter: blur(5px);
+          backdrop-filter: blur(5px);
+  border-radius: 20px;
+  padding-top: 0.5vh;
+  padding-bottom: 1vh;
+  padding-left: 3vw;
+  padding-right: 3vw;
+}/*# sourceMappingURL=home.css.map */
