@@ -13,6 +13,11 @@
     padding-right: $right;
 }
 
+@mixin size($width, $height){
+    width: $width;
+    height: $height;
+}
+
 body{
     background-image: url(/Images/home.jpg);
     background-size: cover;
@@ -22,7 +27,7 @@ body{
 
 #header h1{
     text-align: center;
-    font-size: 400%;
+    font-size: 10vw;
 
     margin-top: 30vh;
     margin-bottom: 5vh;
@@ -31,8 +36,46 @@ body{
 }
 
 #options-container{
-    font-size: 125%;
+    label{
+        color: $lighterGreen;
+        font-size: 3vh;
+    }
 
     @include section;
     @include padding(.5vh, 1vh, 3vw, 3vw);
+}
+
+#selection{
+    height: fit-content;
+
+    display: flex;
+    justify-content: space-between;
+
+    background-color: white;
+    border-radius: 10px;
+
+    @include padding(1.5vh, 1vh, 3vw, 3vw);
+
+    h1{
+        color: $grayGreen;
+        font-size: 3vh;
+
+        margin: 0;
+        align-self: center;
+    }
+
+    img{
+        @include size(2vh, 2vh);
+        align-self: center;
+    }
+}
+
+#course-select{
+    option{
+        color: $grayGreen;
+        font-size: 2vh;
+    }
+    option:hover{
+        color: $mainGreen;
+    }
 }
