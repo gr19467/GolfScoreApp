@@ -24,7 +24,8 @@ body {
   padding-bottom: 1vh;
   padding-left: 3vw;
   padding-right: 3vw;
-  margin-top: 5vh;
+  width: 100%;
+  margin-bottom: 2vh;
 }
 #options-container label {
   color: white;
@@ -61,4 +62,17 @@ body {
 }
 #tee-box-select option:hover {
   color: #2A4420;
+}
+
+#player-select option {
+  color: rgba(42, 68, 32, 0.7960784314);
+  font-size: 2vh;
+}
+#player-select option:hover {
+  color: #2A4420;
+}
+
+#scorecard-container {
+  width: 100%;
+  margin: auto;
 }/*# sourceMappingURL=game.css.map */

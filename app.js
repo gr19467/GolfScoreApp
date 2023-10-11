@@ -14,8 +14,12 @@ let courses = [
       "name": "Spanish Oaks Golf Course - Spanish Fork, UT",
       "url": "spanishOaks"
     }
-  ];
+];
 
+let holes;
+let tee;
+
+//loading functions
 function homeLoad(){
   let courseOptionsHtml = '';
   courses.forEach((course) => {
@@ -36,7 +40,7 @@ function gameLoad(){
       courses.thanksgivingPoint.forEach(element => {
         if(element.id === courseId){
           course = element.name;
-          let holes = element.holes;
+          holes = element.holes;
           holes.forEach(hole => {
             courseTeeBoxes = hole.teeBoxes;
             return courseTeeBoxes;
@@ -47,7 +51,7 @@ function gameLoad(){
       courses.foxHollow.forEach(element => {
         if(element.id === courseId){
           course = element.name;
-          let holes = element.holes;
+          holes = element.holes;
           holes.forEach(hole => {
             courseTeeBoxes = hole.teeBoxes;
             return courseTeeBoxes;
@@ -58,7 +62,7 @@ function gameLoad(){
       courses.spanishOaks.forEach(element => {
         if(element.id === courseId){
           course = element.name;
-          let holes = element.holes;
+          holes = element.holes;
           holes.forEach(hole => {
             courseTeeBoxes = hole.teeBoxes;
             return courseTeeBoxes;
@@ -71,7 +75,7 @@ function gameLoad(){
 
   let teeBoxSelectHtml = ''
   teeBoxes.forEach(function (teeBox, index) {
-    teeBoxSelectHtml += `<option onclick='teeSelected(${JSON.stringify(teeBox.teeType.toUpperCase())},${JSON.stringify(teeBox.yards)})' value="${index}">${teeBox.teeType.toUpperCase()}, ${teeBox.yards} yards</option>`
+    teeBoxSelectHtml += `<option onclick='teeSelected(${JSON.stringify(teeBox.teeType.toUpperCase())},${JSON.stringify(teeBox.yards)}, ${JSON.stringify(teeBox.teeTypeId)})' value="${index}">${teeBox.teeType.toUpperCase()}, ${teeBox.yards} yards</option>`
   });
 
   document.getElementById('tee-box-select').innerHTML = teeBoxSelectHtml;
@@ -89,6 +93,11 @@ function courseDropdown(){
 
 function teeDropdown(){
   dropdown = document.getElementById("tee-box-select");
+  dropdown.style.display = "block";
+}
+
+function playerDropdown(){
+  dropdown = document.getElementById("player-select");
   dropdown.style.display = "block";
 }
 
@@ -116,15 +125,81 @@ function courseSelected(id){
   document.getElementById("goButton").style.display = "flex";
 }
 
-function teeSelected(teeType, teeYards){
+function teeSelected(teeType, teeYards, teeId){
+  tee = teeId - 1;
   let teeName = teeType + ", " + teeYards + " yards";
   selection = document.getElementById("selected");
   selection.textContent = teeName;
 
   dropdown = document.getElementById("tee-box-select");
   dropdown.style.display = "none";
+
+  playerSelect = document.getElementById("player-select-row");
+  playerSelect.style.display = "block";
 }
 
+function playerSelected(num){
+  selection = document.getElementById("player-selected");
+  selection.textContent = num;
+
+  dropdown = document.getElementById("player-select");
+  dropdown.style.display = "none";
+
+  //build the table
+  buildTable(num);
+}
+
+//build the table
+function buildTable(playerNum){
+  let yardageOut = document.getElementById("yardageOut").getElementsByTagName("td");
+  let parOut = document.getElementById("parOut").getElementsByTagName("td");
+  let handicapOut = document.getElementById("handicapOut").getElementsByTagName("td");
+  let yardageIn = document.getElementById("yardageIn").getElementsByTagName("td");
+  let parIn = document.getElementById("parIn").getElementsByTagName("td");
+  let handicapIn = document.getElementById("handicapIn").getElementsByTagName("td");
+
+  for (let i = 0; i < 9; i++) {
+    yardageOut[i].textContent = holes[i].teeBoxes[tee].yards;
+    parOut[i].textContent = holes[i].teeBoxes[tee].par;
+    handicapOut[i].textContent = holes[i].teeBoxes[tee].hcp;
+  }
+
+  for (let i = 9; i < 18; i++) {
+    yardageIn[i - 9].textContent = holes[i].teeBoxes[tee].yards;
+    parIn[i - 9].textContent = holes[i].teeBoxes[tee].par;
+    handicapIn[i - 9].textContent = holes[i].teeBoxes[tee].hcp;
+  }
+
+  //append a row for each player needed
+  let tbodies = document.getElementsByTagName("tbody");
+  for (let i = 0; i < 2; i++) {
+    console.log("i = " + i);
+    for (let j = 0; j < playerNum; j++) {
+      console.log("j = " + j);
+      let player = document.createElement("tr");
+      player.setAttribute("id", "player" + (j + 1));
+        let th = document.createElement("th");
+        th.setAttribute("scope", "row");
+        
+        th.textContent = "Player " + (j + 1);
+
+      //append the th
+      player.appendChild(th);
+
+      //append 8 tds
+      for (let k = 0; k < 9; k++) {
+        console.log("k = " + k);
+        let td = document.createElement("td");
+        player.appendChild(td);
+      }
+
+      //append the player row to the tbody
+      tbodies[i].appendChild(player);
+    }
+  }
+}
+
+//course arrays
 let coursesInfo = [
   {
 "thanksgivingPoint" : [

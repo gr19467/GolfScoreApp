@@ -43,7 +43,9 @@ body{
     @include section;
     @include padding(.5vh, 1vh, 3vw, 3vw);
 
-    margin-top: 5vh;
+    width: 100%;
+
+    margin-bottom: 2vh;
 }
 
 #selection{
@@ -79,4 +81,19 @@ body{
     option:hover{
         color: $mainGreen;
     }
+}
+
+#player-select{
+    option{
+        color: $grayGreen;
+        font-size: 2vh;
+    }
+    option:hover{
+        color: $mainGreen;
+    }
+}
+
+#scorecard-container{
+    width: 100%;
+    margin: auto;
 }
