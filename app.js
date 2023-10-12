@@ -1,3 +1,9 @@
+/*TODO
+  1. toast
+  2. css on tables
+  3. change bg image on game page
+*/
+
 let courses = [
     {
       "id": 11819,
@@ -307,7 +313,6 @@ function changeName(num){
 //score input
 function scoreInput(table, num, player){
   let score = document.getElementById("table" + table + "Player" + (player + 1) + "Hole" + num).textContent;
-  console.log("Score = " + score);
 
   //change the num to the correct number if it's the second table
   if(table === 2){
@@ -316,7 +321,6 @@ function scoreInput(table, num, player){
 
   //update the player's score
   players[player].scores[num - 1] =  score;
-  console.log(players[player].scores[num - 1]);
 
   //update the player's score box
   let playerOut = document.getElementById("player" + (player + 1) + "Out");
@@ -326,6 +330,29 @@ function scoreInput(table, num, player){
   playerOut.textContent = players[player].calculateOut();
   playerIn.textContent = players[player].calculateIn();
   playerTotal.textContent = players[player].calculateTotal();
+
+  //check if the game is over
+  let scoresNeeded = players.length * 18;
+  let currentScores = 0;
+  players.forEach(player => {
+    player.scores.forEach(score => {
+      if(score > 0){
+        currentScores++;
+      }
+    });
+    if(scoresNeeded === currentScores){
+      function temp(){
+        toast();
+      }
+      
+      setTimeout(temp, 500);
+    }
+  });
+}
+
+//toast
+function toast(){
+  alert("Game finished");
 }
 
 //player class
@@ -360,7 +387,6 @@ class Player{
     let total = 0;
     for (let i = 0; i < 9; i++) {
       total += parseInt(this.scores[i]);
-      console.log("Out = " + total);
     }
     return total;
   }
