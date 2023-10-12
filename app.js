@@ -1,9 +1,3 @@
-/*TODO
-  1. have the players be an array like courses
-  2. enter scores
-  3. scores change total
-*/
-
 let courses = [
     {
       "id": 11819,
@@ -313,6 +307,7 @@ function changeName(num){
 //score input
 function scoreInput(table, num, player){
   let score = document.getElementById("table" + table + "Player" + (player + 1) + "Hole" + num).textContent;
+  console.log("Score = " + score);
 
   //change the num to the correct number if it's the second table
   if(table === 2){
@@ -321,6 +316,16 @@ function scoreInput(table, num, player){
 
   //update the player's score
   players[player].scores[num - 1] =  score;
+  console.log(players[player].scores[num - 1]);
+
+  //update the player's score box
+  let playerOut = document.getElementById("player" + (player + 1) + "Out");
+  let playerIn = document.getElementById("player" + (player + 1) + "In");
+  let playerTotal = document.getElementById("player" + (player + 1) + "Total");
+
+  playerOut.textContent = players[player].calculateOut();
+  playerIn.textContent = players[player].calculateIn();
+  playerTotal.textContent = players[player].calculateTotal();
 }
 
 //player class
@@ -352,17 +357,18 @@ class Player{
   }
 
   calculateOut(){
-    let total;
+    let total = 0;
     for (let i = 0; i < 9; i++) {
-      total += this.scores[i];
+      total += parseInt(this.scores[i]);
+      console.log("Out = " + total);
     }
     return total;
   }
 
   calculateIn(){
-    let total;
+    let total = 0;
     for (let i = 9; i < 18; i++) {
-      total += this.scores[i];
+      total += parseInt(this.scores[i]);
     }
     return total;
   }
