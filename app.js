@@ -1,3 +1,11 @@
+/*TODO
+  1. fix changing player number
+  2. set player names
+  3. have the players be an array like courses
+  3. enter scores
+  4. scores change total
+*/
+
 let courses = [
     {
       "id": 11819,
@@ -131,11 +139,14 @@ function teeSelected(teeType, teeYards, teeId){
   selection = document.getElementById("selected");
   selection.textContent = teeName;
 
-  dropdown = document.getElementById("tee-box-select");
+  let dropdown = document.getElementById("tee-box-select");
   dropdown.style.display = "none";
 
-  playerSelect = document.getElementById("player-select-row");
+  let playerSelect = document.getElementById("player-select-row");
   playerSelect.style.display = "block";
+
+  let arrow = document.getElementById("teeArrow");
+  arrow.style.display = "none";
 }
 
 function playerSelected(num){
@@ -144,6 +155,12 @@ function playerSelected(num){
 
   dropdown = document.getElementById("player-select");
   dropdown.style.display = "none";
+
+  scorecards = document.getElementById("scorecard-container");
+  scorecards.style.display = "block";
+
+  let arrow = document.getElementById("playerArrow");
+  arrow.style.display = "none";
 
   //build the table
   buildTable(num);
@@ -180,6 +197,8 @@ function buildTable(playerNum){
       player.setAttribute("id", "player" + (j + 1));
         let th = document.createElement("th");
         th.setAttribute("scope", "row");
+        th.setAttribute("id", "player" + (j + 1) + "Name" + (i + 1));
+        th.setAttribute("oninput", "changeName(" + (j + 1) + ")");
         
         th.textContent = "Player " + (j + 1);
 
@@ -197,6 +216,21 @@ function buildTable(playerNum){
       tbodies[i].appendChild(player);
     }
   }
+
+  //make the names in the first table editable
+  for (let i = 0; i < playerNum; i++) {
+    let playerName = document.getElementById("player" + (i + 1) + "Name1");
+    playerName.setAttribute("contenteditable", "true");
+  }
+}
+
+//name change
+function changeName(num){
+  //get the name input in the first table
+  let playerName = document.getElementById("player" + num + "Name1").textContent;
+
+  //change the name in the second table to that name
+  document.getElementById("player" + num + "Name2").textContent = playerName;
 }
 
 //course arrays
