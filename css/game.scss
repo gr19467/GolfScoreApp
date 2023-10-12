@@ -22,6 +22,8 @@ body{
     background-image: url(/Images/game.jpg);
     background-size: cover;
     background-repeat: no-repeat;
+
+    background-color: $mainGreen;
 }
 
 #header{
@@ -29,7 +31,7 @@ body{
     font-size: 10vw;
 
     margin-top: 5vh;
-    margin-bottom: 5vh;
+    margin-bottom: 2vh;
 
     @include section;
 }
@@ -96,4 +98,30 @@ body{
 #scorecard-container{
     width: 100%;
     margin: auto;
+}
+
+#totals-container{
+    display: flex;
+    justify-content: space-around
+}
+
+.player-totals-container{
+    @include section;
+    @include padding(1vh, 0, 2vw, 2vw);
+
+    h1{
+        color: white;
+        text-align: center;
+    }
+
+    .playerTotals{
+        display: flex;
+        text-align: center;
+    }
+
+    .playerScore{
+        @include padding(0, 0, .5vw, .5vw);
+        border: 2px solid white;
+        border-radius: 5px;
+    }
 }

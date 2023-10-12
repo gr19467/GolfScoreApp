@@ -1,9 +1,7 @@
 /*TODO
-  1. fix changing player number
-  2. set player names
-  3. have the players be an array like courses
-  3. enter scores
-  4. scores change total
+  1. have the players be an array like courses
+  2. enter scores
+  3. scores change total
 */
 
 let courses = [
@@ -162,8 +160,13 @@ function playerSelected(num){
   let arrow = document.getElementById("playerArrow");
   arrow.style.display = "none";
 
+  document.getElementById("totals-container").style.display = "flex";
+
   //build the table
   buildTable(num);
+
+  //build the score outputs
+  buildScores(num);
 }
 
 //build the table
@@ -190,9 +193,7 @@ function buildTable(playerNum){
   //append a row for each player needed
   let tbodies = document.getElementsByTagName("tbody");
   for (let i = 0; i < 2; i++) {
-    console.log("i = " + i);
     for (let j = 0; j < playerNum; j++) {
-      console.log("j = " + j);
       let player = document.createElement("tr");
       player.setAttribute("id", "player" + (j + 1));
         let th = document.createElement("th");
@@ -205,15 +206,20 @@ function buildTable(playerNum){
       //append the th
       player.appendChild(th);
 
-      //append 8 tds
+      //append 9 tds
       for (let k = 0; k < 9; k++) {
-        console.log("k = " + k);
         let td = document.createElement("td");
+        td.setAttribute("contenteditable", "true");
+        td.setAttribute("oninput", "scoreInput(" + (i + 1) + "," + (k + 1) + "," + j + ")");
+        td.setAttribute("id", "table" + (i + 1) + "Player" + (j + 1) + "Hole" + (k + 1));
         player.appendChild(td);
       }
 
       //append the player row to the tbody
       tbodies[i].appendChild(player);
+
+      //add a new player to the player array
+      players[j] = new Player("Player " + (j + 1), "player" + (j + 1));
     }
   }
 
@@ -224,6 +230,74 @@ function buildTable(playerNum){
   }
 }
 
+//build the score outputs
+function buildScores(num){
+  for (let i = 1; i <= num; i++) {
+    //make the player totals container
+    let totalsContainer = document.createElement("div");
+    totalsContainer.classList.add("player-totals-container");
+      //make the h1
+      let h1 = document.createElement("h1");
+      h1.textContent = "Player " + i;
+    totalsContainer.appendChild(h1);
+
+      //make the player totals div
+      let playerTotals = document.createElement("div");
+      playerTotals.classList.add("playerTotals");
+        //make the out div
+        let outDiv = document.createElement("div");
+        outDiv.classList.add("playerScore");
+          //make the h2s
+          let out = document.createElement("h2");
+          out.textContent = "Out";
+          outDiv.appendChild(out);
+
+          let outScore = document.createElement("h2");
+          outScore.textContent = "0";
+          outScore.setAttribute("id", "player" + i + "Out");
+          outDiv.appendChild(outScore);
+
+        playerTotals.appendChild(outDiv);
+
+        //make the in div
+        let inDiv = document.createElement("div");
+        inDiv.classList.add("playerScore");
+
+          //make the h2s
+          let inText = document.createElement("h2");
+          inText.textContent = "In";
+          inDiv.appendChild(inText);
+
+          let inScore = document.createElement("h2");
+          inScore.textContent = "0";
+          inScore.setAttribute("id", "player" + i + "In");
+          inDiv.appendChild(inScore);
+
+        playerTotals.appendChild(inDiv);
+
+        //make the total div
+        let totalDiv = document.createElement("div");
+        totalDiv.classList.add("playerScore");
+
+          //make the h2s
+          let totalText = document.createElement("h2");
+          totalText.textContent = "Total";
+          totalDiv.appendChild(totalText);
+
+          let totalScore = document.createElement("h2");
+          totalScore.textContent = "0";
+          totalScore.setAttribute("id", "player" + i + "Total");
+          totalDiv.appendChild(totalScore);
+
+        playerTotals.appendChild(totalDiv);
+
+      totalsContainer.appendChild(playerTotals);
+    
+    //append all that to the totals-container
+    document.getElementById("totals-container").appendChild(totalsContainer);
+  }
+}
+
 //name change
 function changeName(num){
   //get the name input in the first table
@@ -231,7 +305,75 @@ function changeName(num){
 
   //change the name in the second table to that name
   document.getElementById("player" + num + "Name2").textContent = playerName;
+
+  //update the player's name
+  players[num - 1].name = playerName;
 }
+
+//score input
+function scoreInput(table, num, player){
+  let score = document.getElementById("table" + table + "Player" + (player + 1) + "Hole" + num).textContent;
+
+  //change the num to the correct number if it's the second table
+  if(table === 2){
+    num += 9;
+  }
+
+  //update the player's score
+  players[player].scores[num - 1] =  score;
+}
+
+//player class
+class Player{
+  constructor(name, id){
+    this.name = name;
+    this.id = id;
+    this.scores = [
+      this.score1 = 0,
+      this.score2 = 0,
+      this.score3 = 0,
+      this.score4 = 0,
+      this.score5 = 0,
+      this.score5 = 0,
+      this.score6 = 0,
+      this.score7 = 0,
+      this.score8 = 0,
+      this.score9 = 0,
+      this.score10 = 0,
+      this.score11 = 0,
+      this.score12 = 0,
+      this.score13 = 0,
+      this.score14 = 0,
+      this.score15 = 0,
+      this.score16 = 0,
+      this.score17 = 0,
+      this.score18 = 0
+    ];
+  }
+
+  calculateOut(){
+    let total;
+    for (let i = 0; i < 9; i++) {
+      total += this.scores[i];
+    }
+    return total;
+  }
+
+  calculateIn(){
+    let total;
+    for (let i = 9; i < 18; i++) {
+      total += this.scores[i];
+    }
+    return total;
+  }
+
+  calculateTotal(){
+    return this.calculateOut() + this.calculateIn();
+  }
+}
+
+//player arrays
+let players = [];
 
 //course arrays
 let coursesInfo = [
