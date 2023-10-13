@@ -26,6 +26,24 @@ body{
     background-color: $mainGreen;
 }
 
+.green{
+    th{
+       background-color: $rowGreen; 
+    }
+    td{
+        background-color: $rowGreen;
+    }
+}
+
+.blue{
+    th{
+        background-color: $blue;
+    }
+    td{
+        background-color: $blue;
+    }
+}
+
 #header{
     text-align: center;
     font-size: 10vw;

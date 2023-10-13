@@ -5,6 +5,20 @@ body {
   background-color: #2A4420;
 }
 
+.green th {
+  background-color: #43782e;
+}
+.green td {
+  background-color: #43782e;
+}
+
+.blue th {
+  background-color: #0282E5;
+}
+.blue td {
+  background-color: #0282E5;
+}
+
 #header {
   text-align: center;
   font-size: 10vw;

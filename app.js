@@ -1,7 +1,5 @@
 /*TODO
-  1. toast
-  2. css on tables
-  3. change bg image on game page
+  1. css on tables
 */
 
 let courses = [
