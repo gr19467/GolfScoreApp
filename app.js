@@ -352,7 +352,29 @@ function scoreInput(table, num, player){
 
 //toast
 function toast(){
-  alert("Game finished");
+  //figure out the winner
+  let winnerTotal = 0;
+  let winnerName;
+  players.forEach(player => {
+    if(player.calculateTotal < winnerTotal || winnerTotal === 0){
+      winnerTotal = player.calculateTotal();
+      winnerName = player.name;
+    }
+  });
+  localStorage.setItem("winnerTotal", JSON.stringify(winnerTotal));
+  localStorage.setItem("winnerName", JSON.stringify(winnerName));
+
+  window.location.href = "./winner.html";
+}
+
+//winner
+function winner(){
+  winnerName = localStorage.getItem("winnerName");
+  winnerName = JSON.parse(winnerName);
+  winnerTotal = parseInt(localStorage.getItem("winnerTotal"));
+
+  document.getElementById("congrats").textContent = "Congratulations, " + winnerName + "!";
+  document.getElementById("score").textContent = "You won with a score of " + winnerTotal + "!";
 }
 
 //player class

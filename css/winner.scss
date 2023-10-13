@@ -1,0 +1,61 @@
+@import "colors";
+
+@mixin section{
+    color: $mainGreen;
+    backdrop-filter: blur(5px);
+    border-radius: 20px;
+    text-align: center;
+}
+
+@mixin padding($top, $bottom, $left, $right){
+    padding-top: $top;
+    padding-bottom: $bottom;
+    padding-left: $left;
+    padding-right: $right;
+}
+
+body{
+    background-image: url(/Images/winner.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+
+    background-color: $mainGreen;
+    display: flex;
+    flex-direction: column;
+}
+
+h1{
+    margin-top: 30vh;
+    @include section;
+}
+
+h2{
+    @include section;
+}
+
+a{text-decoration: none;}
+#homeButton{
+    margin-top: 3vh;
+
+    display: flex;
+    justify-content: center;
+
+    h2{
+        width: fit-content;
+        margin: 0;
+        
+        font-size: 3vh;
+
+        color: white;
+        background-color: $mainGreen;
+
+        border-radius: 20px;
+        border: $mainGreen 2px solid;
+
+        @include padding(1vh, .5vh, 2vw, 2vw);
+    } 
+
+    h2:hover{
+        background-color: $lighterGreen;
+    }
+}
