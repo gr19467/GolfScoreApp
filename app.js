@@ -353,26 +353,42 @@ function toast(){
   //figure out the winner
   let winnerTotal = 0;
   let winnerName;
+  let tieName;
   players.forEach(player => {
-    if(player.calculateTotal < winnerTotal || winnerTotal === 0){
+    if(player.calculateTotal() < winnerTotal || winnerTotal === 0){
       winnerTotal = player.calculateTotal();
       winnerName = player.name;
+    }
+    //check for a tie
+    if(player.calculateTotal() === winnerTotal && player.name != winnerName){
+      tieName = player.name;
+    }else{
+      tieName = "undefined";
     }
   });
   localStorage.setItem("winnerTotal", JSON.stringify(winnerTotal));
   localStorage.setItem("winnerName", JSON.stringify(winnerName));
+  localStorage.setItem("tieName", JSON.stringify(tieName));
 
   window.location.href = "./winner.html";
 }
 
 //winner
 function winner(){
+  let tieName = localStorage.getItem("tieName");
+  tieName = JSON.parse(tieName);
   winnerName = localStorage.getItem("winnerName");
   winnerName = JSON.parse(winnerName);
   winnerTotal = parseInt(localStorage.getItem("winnerTotal"));
-
-  document.getElementById("congrats").textContent = "Congratulations, " + winnerName + "!";
-  document.getElementById("score").textContent = "You won with a score of " + winnerTotal + "!";
+  if(tieName != "undefined"){
+    document.getElementById("congrats").textContent = "Congratulations, " + winnerName + " and " + tieName + "!";
+    document.getElementById("score").textContent = "You both tied with a score of " + winnerTotal + "!";
+  }else{
+    document.getElementById("congrats").textContent = "Congratulations, " + winnerName + "!";
+    document.getElementById("score").textContent = "You won with a score of " + winnerTotal + "!";
+  }
+  
+  
 }
 
 //player class
